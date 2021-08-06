@@ -114,15 +114,15 @@ REAL LeptogenesisRate::R0(REAL Temp, VD y) {
 REAL LeptogenesisRate::R1(REAL Temp, VD y) {
     REAL RN1 = -gamma_Ni_L_Phi[0] * (y[1] / Yeq[1] - 1.0);
     RN1 += -eps1 * gamma_Ni_L_Phi[0] * y[0] / 2 / Yeq[0];
-    RN1 += -gamma_Ni_Ni_Chi_Chi[0][0] * (y[1] * y[1] / Yeq[1] / Yeq[1] - y[3] * y[3] / Yeq[3] / Yeq[3]);
-    RN1 += -gamma_Ni_Ni_Chi_Chi[0][1] * (y[1] * y[2] / Yeq[1] / Yeq[2] - y[3] * y[3] / Yeq[3] / Yeq[3]);
-    RN1 += -gamma_Ni_Ni_Chi_Chi[1][0] * (y[1] * y[2] / Yeq[1] / Yeq[2] - y[3] * y[3] / Yeq[3] / Yeq[3]);
-    RN1 += -gamma_Ni_Ni_S_S[0][0] * (y[1] * y[1] / Yeq[1] / Yeq[1] - y[4] * y[4] / Yeq[4] / Yeq[4]);
-    RN1 += -gamma_Ni_Ni_S_S[0][1] * (y[1] * y[2] / Yeq[1] / Yeq[2] - y[4] * y[4] / Yeq[4] / Yeq[4]);
-    RN1 += -gamma_Ni_Ni_S_S[1][0] * (y[1] * y[2] / Yeq[1] / Yeq[2] - y[4] * y[4] / Yeq[4] / Yeq[4]);
+    RN1 += -2.0 * gamma_Ni_Ni_Chi_Chi[0][0] * y[1] * y[1] / Yeq[1] / Yeq[1];
+    RN1 += -gamma_Ni_Ni_Chi_Chi[0][1] * y[1] * y[2] / Yeq[1] / Yeq[2] ;
+    RN1 += -gamma_Ni_Ni_Chi_Chi[1][0] * y[1] * y[2] / Yeq[1] / Yeq[2] ;
+    RN1 += -2.0 * gamma_Ni_Ni_S_S[0][0] * y[1] * y[1] / Yeq[1] / Yeq[1];
+    RN1 += -gamma_Ni_Ni_S_S[0][1] * y[1] * y[2] / Yeq[1] / Yeq[2] ;
+    RN1 += -gamma_Ni_Ni_S_S[1][0] * y[1] * y[2] / Yeq[1] / Yeq[2] ;
     // if (MNR1 > MCHI + MS)
     // { // * The mass threshold will be checked when calculate gamma
-    RN1 += -gamma_Ni_Chi_S[0] * (y[1] / Yeq[1] - y[3] * y[4] / Yeq[3] / Yeq[4]);
+    RN1 += -gamma_Ni_Chi_S[0] * y[1] / Yeq[1];
     // }
     SPDLOG_INFO_FILE("Collision Rate for N1: R1 = {:+9.8e}", RN1);
     return RN1;
@@ -131,54 +131,39 @@ REAL LeptogenesisRate::R1(REAL Temp, VD y) {
 REAL LeptogenesisRate::R2(REAL Temp, VD y) {
     REAL RN2 = -gamma_Ni_L_Phi[1] * (y[2] / Yeq[2] - 1.0);
     RN2 += -eps2 * gamma_Ni_L_Phi[1] * y[0] / 2 / Yeq[0];
-    RN2 += -gamma_Ni_Ni_Chi_Chi[1][1] * (y[2] * y[2] / Yeq[2] / Yeq[2] - y[3] * y[3] / Yeq[3] / Yeq[3]);
-    RN2 += -gamma_Ni_Ni_Chi_Chi[1][0] * (y[2] * y[1] / Yeq[2] / Yeq[1] - y[3] * y[3] / Yeq[3] / Yeq[3]);
-    RN2 += -gamma_Ni_Ni_Chi_Chi[0][1] * (y[2] * y[1] / Yeq[2] / Yeq[1] - y[3] * y[3] / Yeq[3] / Yeq[3]);
-    RN2 += -gamma_Ni_Ni_S_S[1][1] * (y[2] * y[2] / Yeq[2] / Yeq[2] - y[4] * y[4] / Yeq[4] / Yeq[4]);
-    RN2 += -gamma_Ni_Ni_S_S[1][0] * (y[2] * y[1] / Yeq[2] / Yeq[1] - y[4] * y[4] / Yeq[4] / Yeq[4]);
-    RN2 += -gamma_Ni_Ni_S_S[0][1] * (y[2] * y[1] / Yeq[2] / Yeq[1] - y[4] * y[4] / Yeq[4] / Yeq[4]);
-    // if (MNR2 > MCHI + MS)
-    // {
-    RN2 += -gamma_Ni_Chi_S[1] * (y[2] / Yeq[2] - y[3] * y[4] / Yeq[3] / Yeq[4]);
-    // }
+    RN2 += -2.0 * gamma_Ni_Ni_Chi_Chi[1][1] * y[2] * y[2] / Yeq[2] / Yeq[2] ;
+    RN2 += -gamma_Ni_Ni_Chi_Chi[1][0] * y[2] * y[1] / Yeq[2] / Yeq[1] ;
+    RN2 += -gamma_Ni_Ni_Chi_Chi[0][1] * y[2] * y[1] / Yeq[2] / Yeq[1] ;
+    RN2 += -2.0 * gamma_Ni_Ni_S_S[1][1] * y[2] * y[2] / Yeq[2] / Yeq[2] ;
+    RN2 += -gamma_Ni_Ni_S_S[1][0] * y[2] * y[1] / Yeq[2] / Yeq[1] ;
+    RN2 += -gamma_Ni_Ni_S_S[0][1] * y[2] * y[1] / Yeq[2] / Yeq[1] ;
+    RN2 += -gamma_Ni_Chi_S[1] * y[2] / Yeq[2] ;
     SPDLOG_INFO_FILE("Collision Rate for N2: R2 = {:+9.8e}", RN2);
     return RN2;
 }
 
 REAL LeptogenesisRate::R3(REAL Temp, VD y) {
     REAL RCHI = gamma_L_Phi_Chi_S;
-    RCHI += gamma_Ni_Ni_Chi_Chi[0][0] * (y[1] * y[1] / Yeq[1] / Yeq[1] - y[3] * y[3] / Yeq[3] / Yeq[3]);
-    RCHI += gamma_Ni_Ni_Chi_Chi[0][1] * (y[1] * y[2] / Yeq[1] / Yeq[2] - y[3] * y[3] / Yeq[3] / Yeq[3]);
-    RCHI += gamma_Ni_Ni_Chi_Chi[1][0] * (y[1] * y[2] / Yeq[1] / Yeq[2] - y[3] * y[3] / Yeq[3] / Yeq[3]);
-    RCHI += gamma_Ni_Ni_Chi_Chi[1][1] * (y[2] * y[2] / Yeq[2] / Yeq[2] - y[3] * y[3] / Yeq[3] / Yeq[3]);
-    // if (MNR1 > MCHI + MS)
-    // {
-    RCHI += gamma_Ni_Chi_S[0] * (y[1] / Yeq[1] - y[3] * y[4] / Yeq[3] / Yeq[4]);
-    // }
-    // if (MNR2 > MCHI + MS)
-    // {
-    RCHI += gamma_Ni_Chi_S[1] * (y[2] / Yeq[2] - y[3] * y[4] / Yeq[3] / Yeq[4]);
-    // }
-    RCHI += gamma_S_Chi_Ni[0] * (y[4] / Yeq[4] - y[3] * y[1] / Yeq[3] / Yeq[1]);
-    RCHI += gamma_S_Chi_Ni[1] * (y[4] / Yeq[4] - y[3] * y[2] / Yeq[3] / Yeq[2]);
-    RCHI += -gamma_Chi_S_Ni[0] * (y[3] / Yeq[3] - y[4] * y[1] / Yeq[4] / Yeq[1]);
-    RCHI += -gamma_Chi_S_Ni[1] * (y[3] / Yeq[3] - y[4] * y[2] / Yeq[4] / Yeq[2]);
+    RCHI += (eps1 + eps2) * gamma_L_Phi_Chi_S * y[0] / 2 / Yeq[0]; 
+    RCHI += 2.0 * gamma_Ni_Ni_Chi_Chi[0][0] * y[1] * y[1] / Yeq[1] / Yeq[1] ;
+    RCHI += 2.0 * gamma_Ni_Ni_Chi_Chi[0][1] * y[1] * y[2] / Yeq[1] / Yeq[2] ;
+    RCHI += 2.0 * gamma_Ni_Ni_Chi_Chi[1][0] * y[1] * y[2] / Yeq[1] / Yeq[2] ;
+    RCHI += 2.0 * gamma_Ni_Ni_Chi_Chi[1][1] * y[2] * y[2] / Yeq[2] / Yeq[2] ;
+    RCHI += gamma_Ni_Chi_S[0] * y[1] / Yeq[1] ;
+    RCHI += gamma_Ni_Chi_S[1] * y[2] / Yeq[2] ;
     SPDLOG_INFO_FILE("Collision Rate for CHI: R3 = {:+9.8e}", RCHI);
     return RCHI;
 }
 
 REAL LeptogenesisRate::R4(REAL Temp, VD y) {
     REAL RS = gamma_L_Phi_Chi_S;
-    RS += gamma_Ni_Ni_S_S[0][0] * (y[1] * y[1] / Yeq[1] / Yeq[1] - y[4] * y[4] / Yeq[4] / Yeq[4]);
-    RS += gamma_Ni_Ni_S_S[0][1] * (y[1] * y[2] / Yeq[1] / Yeq[2] - y[4] * y[4] / Yeq[4] / Yeq[4]);
-    RS += gamma_Ni_Ni_S_S[1][0] * (y[1] * y[2] / Yeq[1] / Yeq[2] - y[4] * y[4] / Yeq[4] / Yeq[4]);
-    RS += gamma_Ni_Ni_S_S[1][1] * (y[2] * y[2] / Yeq[2] / Yeq[2] - y[4] * y[4] / Yeq[4] / Yeq[4]);
-    RS += gamma_Ni_Chi_S[0] * (y[1] / Yeq[1] - y[3] * y[4] / Yeq[3] / Yeq[4]);
-    RS += gamma_Ni_Chi_S[1] * (y[2] / Yeq[2] - y[3] * y[4] / Yeq[3] / Yeq[4]);
-    RS += -gamma_S_Chi_Ni[0] * (y[4] / Yeq[4] - y[3] * y[1] / Yeq[3] / Yeq[1]);
-    RS += -gamma_S_Chi_Ni[1] * (y[4] / Yeq[4] - y[3] * y[2] / Yeq[3] / Yeq[2]);
-    RS += gamma_Chi_S_Ni[0] * (y[3] / Yeq[3] - y[4] * y[1] / Yeq[4] / Yeq[1]);
-    RS += gamma_Chi_S_Ni[1] * (y[3] / Yeq[3] - y[4] * y[2] / Yeq[4] / Yeq[2]);
+    RS += (eps1 + eps2) * gamma_L_Phi_Chi_S * y[0] / 2 / Yeq[0]; 
+    RS += 2.0 * gamma_Ni_Ni_S_S[0][0] * y[1] * y[1] / Yeq[1] / Yeq[1] ;
+    RS += 2.0 * gamma_Ni_Ni_S_S[0][1] * y[1] * y[2] / Yeq[1] / Yeq[2] ;
+    RS += 2.0 * gamma_Ni_Ni_S_S[1][0] * y[1] * y[2] / Yeq[1] / Yeq[2] ;
+    RS += 2.0 * gamma_Ni_Ni_S_S[1][1] * y[2] * y[2] / Yeq[2] / Yeq[2] ;
+    RS += gamma_Ni_Chi_S[0] * y[1] / Yeq[1] ;
+    RS += gamma_Ni_Chi_S[1] * y[2] / Yeq[2] ;
     SPDLOG_INFO_FILE("Collision Rate for S: R4 = {:+9.8e}", RS);
     return RS;
 }
