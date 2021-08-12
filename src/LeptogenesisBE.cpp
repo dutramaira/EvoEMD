@@ -95,7 +95,7 @@ VD LeptogenesisBE::dYdX2(REAL x, VD y) {
     REAL HEPat1 = EMDEvo.Get_Hubble_at_T_Period(EMD::EPE, Temp1);
     REAL satz = Entropy_Density(Temp);
     REAL sati = Entropy_Density(EMDEvo.Get_Ti());
-    REAL entropy_term = 20.0 * EMDEvo.Get_Delta() / 3.0 * pow(HEPatZ / HRDati, 2) * HRDatr / HEPat1 * pow(z, 4) / zr *
+    REAL entropy_term = 20.0 * EMDEvo.Get_Delta() / 3.0 * pow(HEPatZ / HRDati, 2) * HRDatr / HEPat1 * pow(z, 5) / zr *
                         sati / satz * exp(-5.0 * HRDatr / HEPatZ / 3.0);
     res = 8.0 * z * z * z * z * R_Calculator.Ri(Temp, y) / satz / EMDEvo.Get_Hubble_at_T_Period(EMD::EPE, Temp1) -
           y * entropy_term;
